@@ -126,13 +126,25 @@
         "configurationAttributes": {
           "launch": {
             "required": [
-              "program"
+              "program",
+              "debuggerStartCommand",
+              "debuggerWorkingDirectory"
             ],
             "properties": {
               "program": {
                 "type": "string",
                 "description": "Absolute path to a text file.",
                 "default": "${workspaceFolder}/${command:AskForProgramName}"
+              },
+              "debuggerStartCommand": {
+                "type": "string",
+                "description": "Command used to start the debugger",
+                "default": "esy start"
+              },
+              "debuggerWorkingDirectory": {
+                "type": "string",
+                "description": "The workind directory to run the debugger",
+                "default": "${workspaceFolder}/../../text-debugger/"
               },
               "stopOnEntry": {
                 "type": "boolean",
@@ -153,6 +165,8 @@
             "request": "launch",
             "name": "Ask for file name",
             "program": "${workspaceFolder}/${command:AskForProgramName}",
+            "debuggerStartCommand": "esy start",
+            "debuggerWorkingDirectory": "${workspaceFolder}/../../text-debugger/",
             "stopOnEntry": true
           }
         ],
@@ -165,6 +179,8 @@
               "request": "launch",
               "name": "Ask for file name",
               "program": "^\"\\${workspaceFolder}/\\${command:AskForProgramName}\"",
+              "debuggerStartCommand": "esy start",
+              "debuggerWorkingDirectory": "${workspaceFolder}/../../text-debugger/",
               "stopOnEntry": true
             }
           }

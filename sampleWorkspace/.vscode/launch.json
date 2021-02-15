@@ -9,6 +9,8 @@
 			"request": "launch",
 			"name": "Debug test.md",
 			"program": "${workspaceFolder}/test.md",
+			"debuggerStartCommand": "esy start",
+			"debuggerWorkingDirectory": "${workspaceFolder}/../../text-debugger/",
 			"stopOnEntry": true,
 			"trace": false
 		}
