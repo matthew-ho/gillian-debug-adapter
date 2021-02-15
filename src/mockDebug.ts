@@ -138,7 +138,6 @@ export class MockDebugSession extends LoggingDebugSession {
 			default:
 				console.log("Bad message type")
 		}
-
 	}
 
 	/**
@@ -232,10 +231,19 @@ export class MockDebugSession extends LoggingDebugSession {
 		this._debugger = exec(args.debuggerStartCommand, { cwd: args.debuggerWorkingDirectory });
 		this._debugger.stdin.setEncoding('utf-8');
 		this._debugger.stdout.on('data', (data) => {
-			this.parseDebuggerResponse(data.toString());
+			for (const response of data.split("\n")) {
+				if (response) {
+					this.parseDebuggerResponse(response);
+				}
+			}
 		});
 
-		this._debugger.stdin.write(JSON.stringify(args) + "\n");
+		const debugger_args = {
+			request: "launch",
+			program: args.program,
+			stopOnEntry: args.stopOnEntry
+		}
+		this._debugger.stdin.write(JSON.stringify(debugger_args) + "\n");
 		this._debugger.stdin.write(JSON.stringify(response) + "\n");
 
 		// this.sendResponse(response);
