@@ -13,6 +13,7 @@ import {
 	Logger, logger,
 	LoggingDebugSession,
 	InitializedEvent,
+	TerminatedEvent,
 } from 'vscode-debugadapter';
 import { DebugProtocol } from 'vscode-debugprotocol';
 // import { basename } from 'path';
@@ -125,15 +126,19 @@ export class MockDebugSession extends LoggingDebugSession {
 	}
 
 	private parseDebuggerResponse(response: string): void {
-		let response_json = JSON.parse(response);
-		this.sendResponse(response_json);
-		// switch (type) {
-		// 	case "launch":
-		// 		this.sendResponse();
-		// 		return;
-		// 	default:
-		// 		console.log("Bad message type")
-		// }
+		const response_json = JSON.parse(response);
+		const type = response_json.type;
+		switch (type) {
+			case "launch":
+				this.sendResponse(response_json);
+				return;
+			case "exit":
+				this.sendEvent(new TerminatedEvent());
+				return;
+			default:
+				console.log("Bad message type")
+		}
+
 	}
 
 	/**
