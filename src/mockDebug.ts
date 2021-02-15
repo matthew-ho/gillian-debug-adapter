@@ -127,12 +127,12 @@ export class MockDebugSession extends LoggingDebugSession {
 
 	private parseDebuggerResponse(response: string): void {
 		const response_json = JSON.parse(response);
-		const type = response_json.type;
+		const type = response_json.command;
 		switch (type) {
 			case "launch":
 				this.sendResponse(response_json);
 				return;
-			case "exit":
+			case "end":
 				this.sendEvent(new TerminatedEvent());
 				return;
 			default:
