@@ -14,9 +14,12 @@ import {
 	LoggingDebugSession,
 	InitializedEvent,
 	TerminatedEvent,
+	StoppedEvent,
+	Thread,
+	Source,
 } from 'vscode-debugadapter';
 import { DebugProtocol } from 'vscode-debugprotocol';
-// import { basename } from 'path';
+import { basename } from 'path';
 // import { MockRuntime, IMockBreakpoint, FileAccessor } from './mockRuntime';
 import { FileAccessor } from './mockRuntime';
 import { Subject } from 'await-notify';
@@ -51,7 +54,7 @@ interface ILaunchRequestArguments extends DebugProtocol.LaunchRequestArguments {
 export class MockDebugSession extends LoggingDebugSession {
 
 	// we don't support multiple threads, so we can use a hardcoded ID for the default thread
-	// private static threadID = 1;
+	private static threadID = 1;
 
 	// a Mock runtime (or debugger)
 	// private _runtime: MockRuntime;
@@ -134,6 +137,9 @@ export class MockDebugSession extends LoggingDebugSession {
 				return;
 			case "end":
 				this.sendEvent(new TerminatedEvent());
+				return;
+			case "stopOnException":
+				this.sendEvent(new StoppedEvent('exception', MockDebugSession.threadID));
 				return;
 			default:
 				console.log("Bad message type")
@@ -279,25 +285,26 @@ export class MockDebugSession extends LoggingDebugSession {
 	// 	this.sendResponse(response);
 	// }
 
-	// protected breakpointLocationsRequest(response: DebugProtocol.BreakpointLocationsResponse, args: DebugProtocol.BreakpointLocationsArguments, request?: DebugProtocol.Request): void {
-
-	// 	if (args.source.path) {
-	// 		const bps = this._runtime.getBreakpoints(args.source.path, this.convertClientLineToDebugger(args.line));
-	// 		response.body = {
-	// 			breakpoints: bps.map(col => {
-	// 				return {
-	// 					line: args.line,
-	// 					column: this.convertDebuggerColumnToClient(col)
-	// 				};
-	// 			})
-	// 		};
-	// 	} else {
-	// 		response.body = {
-	// 			breakpoints: []
-	// 		};
-	// 	}
-	// 	this.sendResponse(response);
-	// }
+	protected breakpointLocationsRequest(response: DebugProtocol.BreakpointLocationsResponse, args: DebugProtocol.BreakpointLocationsArguments, request?: DebugProtocol.Request): void {
+		if (args.source.path) {
+			// const bps = this._runtime.getBreakpoints(args.source.path, this.convertClientLineToDebugger(args.line));
+			// TODO: Ask for actual response from debugger
+			const bps = [0, 2, 3, 4]
+			response.body = {
+				breakpoints: bps.map(col => {
+					return {
+						line: args.line,
+						column: this.convertDebuggerColumnToClient(col)
+					};
+				})
+			};
+		} else {
+			response.body = {
+				breakpoints: []
+			};
+		}
+		this.sendResponse(response);
+	}
 
 	// protected async setExceptionBreakPointsRequest(response: DebugProtocol.SetExceptionBreakpointsResponse, args: DebugProtocol.SetExceptionBreakpointsArguments): Promise<void> {
 
@@ -342,40 +349,52 @@ export class MockDebugSession extends LoggingDebugSession {
 	// 	this.sendResponse(response);
 	// }
 
-	// protected threadsRequest(response: DebugProtocol.ThreadsResponse): void {
+	protected threadsRequest(response: DebugProtocol.ThreadsResponse): void {
 
-	// 	// runtime supports no threads so just return a default thread.
-	// 	response.body = {
-	// 		threads: [
-	// 			new Thread(MockDebugSession.threadID, "thread 1")
-	// 		]
-	// 	};
-	// 	this.sendResponse(response);
-	// }
+		// runtime supports no threads so just return a default thread.
+		response.body = {
+			threads: [
+				new Thread(MockDebugSession.threadID, "thread 1")
+			]
+		};
+		this.sendResponse(response);
+	}
 
-	// protected stackTraceRequest(response: DebugProtocol.StackTraceResponse, args: DebugProtocol.StackTraceArguments): void {
+	protected stackTraceRequest(response: DebugProtocol.StackTraceResponse, args: DebugProtocol.StackTraceArguments): void {
 
-	// 	const startFrame = typeof args.startFrame === 'number' ? args.startFrame : 0;
-	// 	const maxLevels = typeof args.levels === 'number' ? args.levels : 1000;
-	// 	const endFrame = startFrame + maxLevels;
+		// const startFrame = typeof args.startFrame === 'number' ? args.startFrame : 0;
+		// const maxLevels = typeof args.levels === 'number' ? args.levels : 1000;
+		// const endFrame = startFrame + maxLevels;
 
-	// 	const stk = this._runtime.stack(startFrame, endFrame);
+		// const stk = this._runtime.stack(startFrame, endFrame);
 
-	// 	response.body = {
-	// 		stackFrames: stk.frames.map(f => {
-	// 			const sf = new StackFrame(f.index, f.name, this.createSource(f.file), this.convertDebuggerLineToClient(f.line));
-	// 			if (typeof f.column === 'number') {
-	// 				sf.column = this.convertDebuggerColumnToClient(f.column);
-	// 			}
-	// 			return sf;
-	// 		}),
-	// 		//no totalFrames: 				// VS Code has to probe/guess. Should result in a max. of two requests
-	// 		totalFrames: stk.count			// stk.count is the correct size, should result in a max. of two requests
-	// 		//totalFrames: 1000000 			// not the correct size, should result in a max. of two requests
-	// 		//totalFrames: endFrame + 20 	// dynamically increases the size with every requested chunk, results in paging
-	// 	};
-	// 	this.sendResponse(response);
-	// }
+		// response.body = {
+		// 	stackFrames: stk.frames.map(f => {
+		// 		const sf = new StackFrame(f.index, f.name, this.createSource(f.file), this.convertDebuggerLineToClient(f.line));
+		// 		if (typeof f.column === 'number') {
+		// 			sf.column = this.convertDebuggerColumnToClient(f.column);
+		// 		}
+		// 		return sf;
+		// 	}),
+		// 	//no totalFrames: 				// VS Code has to probe/guess. Should result in a max. of two requests
+		// 	totalFrames: stk.count			// stk.count is the correct size, should result in a max. of two requests
+		// 	//totalFrames: 1000000 			// not the correct size, should result in a max. of two requests
+		// 	//totalFrames: endFrame + 20 	// dynamically increases the size with every requested chunk, results in paging
+		// };
+		// this.sendResponse(response);
+
+		// TODO: Ask for actual response from debugger
+		response.body = {
+			stackFrames: [{
+				id: 0,
+				name: "This is a test",
+				line: 21,
+				column: 0,
+				source: this.createSource(__dirname + "/../../sampleWorkspace/test.md")
+			}]
+		};
+		this.sendResponse(response);
+	}
 
 	// protected scopesRequest(response: DebugProtocol.ScopesResponse, args: DebugProtocol.ScopesArguments): void {
 
@@ -467,11 +486,11 @@ export class MockDebugSession extends LoggingDebugSession {
 	// 	this.sendResponse(response);
 	// }
 
-	protected continueRequest(response: DebugProtocol.ContinueResponse, args: DebugProtocol.ContinueArguments): void {
-		// this._runtime.continue();
-		this._debugger.stdin.write("hhello");
-		this.sendResponse(response);
-	}
+	// protected continueRequest(response: DebugProtocol.ContinueResponse, args: DebugProtocol.ContinueArguments): void {
+	// 	// this._runtime.continue();
+	// 	this._debugger.stdin.write("hhello");
+	// 	this.sendResponse(response);
+	// }
 
 	// protected reverseContinueRequest(response: DebugProtocol.ReverseContinueResponse, args: DebugProtocol.ReverseContinueArguments): void {
 	// 	this._runtime.continue(true);
@@ -680,7 +699,7 @@ export class MockDebugSession extends LoggingDebugSession {
 
 	//---- helpers
 
-	// private createSource(filePath: string): Source {
-	// 	return new Source(basename(filePath), this.convertDebuggerPathToClient(filePath), undefined, undefined, 'mock-adapter-data');
-	// }
+	private createSource(filePath: string): Source {
+		return new Source(basename(filePath), this.convertDebuggerPathToClient(filePath), undefined, undefined, 'mock-adapter-data');
+	}
 }
