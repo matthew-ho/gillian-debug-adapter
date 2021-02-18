@@ -121,8 +121,7 @@
       {
         "type": "mock",
         "label": "Mock Debug",
-        "program": "./out/debugAdapter.js",
-        "runtime": "node",
+        "program": "TODO: Compile Gillian as executable",
         "configurationAttributes": {
           "launch": {
             "required": [
