@@ -73,6 +73,26 @@
           "command": "extension.mock-debug.debugEditorContents",
           "when": "resourceLangId == markdown",
           "group": "1_run@20"
+        },
+        {
+          "command": "extension.mock-debug.runEditorContents",
+          "when": "resourceLangId == plaintext",
+          "group": "1_run@10"
+        },
+        {
+          "command": "extension.mock-debug.debugEditorContents",
+          "when": "resourceLangId == plaintext",
+          "group": "1_run@20"
+        },
+        {
+          "command": "extension.mock-debug.runEditorContents",
+          "when": "resourceLangId == gil",
+          "group": "1_run@10"
+        },
+        {
+          "command": "extension.mock-debug.debugEditorContents",
+          "when": "resourceLangId == gil",
+          "group": "1_run@20"
         }
       ],
       "commandPalette": [
@@ -115,6 +135,12 @@
     "breakpoints": [
       {
         "language": "markdown"
+      },
+      {
+        "language": "plaintext"
+      },
+      {
+        "language": "gil"
       }
     ],
     "debuggers": [
