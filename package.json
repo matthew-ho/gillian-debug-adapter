@@ -63,36 +63,30 @@
   ],
   "contributes": {
     "menus": {
-      "editor/title": [
+      "editor/title/run": [
         {
           "command": "extension.mock-debug.runEditorContents",
-          "when": "resourceLangId == markdown",
-          "group": "1_run@10"
+          "when": "resourceLangId == markdown"
         },
         {
           "command": "extension.mock-debug.debugEditorContents",
-          "when": "resourceLangId == markdown",
-          "group": "1_run@20"
+          "when": "resourceLangId == markdown"
         },
         {
           "command": "extension.mock-debug.runEditorContents",
-          "when": "resourceLangId == plaintext",
-          "group": "1_run@10"
+          "when": "resourceLangId == plaintext"
         },
         {
           "command": "extension.mock-debug.debugEditorContents",
-          "when": "resourceLangId == plaintext",
-          "group": "1_run@20"
+          "when": "resourceLangId == plaintext"
         },
         {
           "command": "extension.mock-debug.runEditorContents",
-          "when": "resourceLangId == gil",
-          "group": "1_run@10"
+          "when": "resourceLangId == gil"
         },
         {
           "command": "extension.mock-debug.debugEditorContents",
-          "when": "resourceLangId == gil",
-          "group": "1_run@20"
+          "when": "resourceLangId == gil"
         }
       ],
       "commandPalette": [
