@@ -23,9 +23,9 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
 
 	createDebugAdapterDescriptor(_session: vscode.DebugSession, executable: vscode.DebugAdapterExecutable | undefined): ProviderResult<vscode.DebugAdapterDescriptor> {
 		const command = "esy";
-		const args = ["start"];
+		const args = ["x", "wisl", "debugverify"];
 		const options = {
-			cwd: __dirname + "/../../../gillian-debugger"
+			cwd: __dirname + "/../../../Gillian"
 		};
 		executable = new vscode.DebugAdapterExecutable(command, args, options);
 
