@@ -7,8 +7,8 @@
 		{
 			"type": "mock",
 			"request": "launch",
-			"name": "Debug test.md",
-			"program": "${workspaceFolder}/test.md",
+			"name": "Debug list_append.gil",
+			"program": "${workspaceFolder}/list_append.gil",
 			"stopOnEntry": true,
 			"trace": false
 		}
