@@ -71,6 +71,14 @@
         {
           "command": "extension.mock-debug.debugEditorContents",
           "when": "resourceLangId == gil"
+        },
+        {
+          "command": "extension.mock-debug.runEditorContents",
+          "when": "resourceLangId == wisl"
+        },
+        {
+          "command": "extension.mock-debug.debugEditorContents",
+          "when": "resourceLangId == wisl"
         }
       ],
       "commandPalette": [
@@ -81,6 +89,14 @@
 				{
 					"command": "extension.mock-debug.runEditorContents",
 					"when": "resourceLangId == gil"
+				},
+        {
+					"command": "extension.mock-debug.debugEditorContents",
+					"when": "resourceLangId == wisl"
+				},
+				{
+					"command": "extension.mock-debug.runEditorContents",
+					"when": "resourceLangId == wisl"
 				}
 			],
       "debug/variables/context": [
@@ -113,6 +129,9 @@
     "breakpoints": [
       {
         "language": "gil"
+      },
+      {
+        "language": "wisl"
       }
     ],
     "debuggers": [
