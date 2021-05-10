@@ -1,0 +1,9 @@
+{ emp }
+function get_one() {
+  x := new(1);
+  [x] := 1;
+  delete(x);
+  y := [x];
+  return y
+}
+{ ret == 1 }
