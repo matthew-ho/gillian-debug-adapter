@@ -79,6 +79,14 @@
         {
           "command": "extension.mock-debug.debugEditorContents",
           "when": "resourceLangId == wisl"
+        },
+        {
+          "command": "extension.mock-debug.runEditorContents",
+          "when": "resourceLangId == javascript"
+        },
+        {
+          "command": "extension.mock-debug.debugEditorContents",
+          "when": "resourceLangId == javascript"
         }
       ],
       "commandPalette": [
@@ -97,6 +105,14 @@
 				{
 					"command": "extension.mock-debug.runEditorContents",
 					"when": "resourceLangId == wisl"
+				},
+        {
+					"command": "extension.mock-debug.debugEditorContents",
+					"when": "resourceLangId == javascript"
+				},
+				{
+					"command": "extension.mock-debug.runEditorContents",
+					"when": "resourceLangId == javascript"
 				}
 			],
       "debug/variables/context": [
@@ -132,6 +148,9 @@
       },
       {
         "language": "wisl"
+      },
+      {
+        "language": "js"
       }
     ],
     "debuggers": [
