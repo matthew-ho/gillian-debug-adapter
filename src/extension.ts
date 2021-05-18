@@ -24,9 +24,26 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
 	createDebugAdapterDescriptor(_session: vscode.DebugSession, executable: vscode.DebugAdapterExecutable | undefined): ProviderResult<vscode.DebugAdapterDescriptor> {
 		const file_extension = _session.configuration.program.split('.').pop();
 		let gillian_executable_command : string;
+		// Match of the file extension first
 		switch (file_extension) {
 			case "js":
 				gillian_executable_command = "gillian-js";
+				break;
+			case "wisl":
+				gillian_executable_command = "wisl";
+				break;
+			case "gil":
+				// Check the target language if it is a GIL file
+				switch (_session.configuration.targetLanguage) {
+					case "js":
+						gillian_executable_command = "gillian-js";
+						break;
+					case "wisl":
+					default:
+						// Default to WISL
+						gillian_executable_command = "wisl";
+						break;
+				}
 				break;
 			default:
 				// Default to WISL

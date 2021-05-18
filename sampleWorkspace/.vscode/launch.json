@@ -10,6 +10,16 @@
 			"name": "Debug list_append.gil",
 			"program": "${workspaceFolder}/wisl/list_append.gil",
 			"stopOnEntry": true,
+			"targetLanguage": "wisl",
+			"trace": false
+		},
+		{
+			"type": "gillian",
+			"request": "launch",
+			"name": "Debug SLL.gil",
+			"program": "${workspaceFolder}/js/SLL.gil",
+			"stopOnEntry": true,
+			"targetLanguage": "js",
 			"trace": false
 		}
 	]
