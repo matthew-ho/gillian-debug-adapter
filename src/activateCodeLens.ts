@@ -1,12 +1,11 @@
 
-import { commands, CodeLensProvider, debug, DebugConfiguration, ExtensionContext, languages, TextDocument, CodeLens, Range } from "vscode";
+import { CodeLens, CodeLensProvider, commands, ExtensionContext, languages, Range, TextDocument } from "vscode";
+import { startDebugging } from "./commands";
 
 export function activateCodeLens(context: ExtensionContext) {
   let commandDisposable = commands.registerCommand(
     "extension.code-lens.debugProcedure",
-    (config: DebugConfiguration) => {
-      debug.startDebugging(undefined, config);
-    }
+    startDebugging
   );
 
   const supportedLanguages = ["javascript", "gil", "wisl"];

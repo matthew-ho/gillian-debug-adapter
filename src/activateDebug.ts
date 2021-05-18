@@ -7,6 +7,8 @@
 import * as vscode from 'vscode';
 import { WorkspaceFolder, DebugConfiguration, ProviderResult, CancellationToken } from 'vscode';
 
+import { startDebugging } from './commands';
+
 export function activateDebug(context: vscode.ExtensionContext, factory: vscode.DebugAdapterDescriptorFactory) {
 
 	context.subscriptions.push(
@@ -16,13 +18,13 @@ export function activateDebug(context: vscode.ExtensionContext, factory: vscode.
 				targetResource = vscode.window.activeTextEditor.document.uri;
 			}
 			if (targetResource) {
-				vscode.debug.startDebugging(undefined, {
+				startDebugging({
 						type: 'gillian',
 						name: 'Run File',
 						request: 'launch',
 						program: targetResource.fsPath
 					},
-					{ noDebug: true }
+
 				);
 			}
 		}),
@@ -32,7 +34,7 @@ export function activateDebug(context: vscode.ExtensionContext, factory: vscode.
 				targetResource = vscode.window.activeTextEditor.document.uri;
 			}
 			if (targetResource) {
-				vscode.debug.startDebugging(undefined, {
+				startDebugging({
 					type: 'gillian',
 					name: 'Debug File',
 					request: 'launch',
