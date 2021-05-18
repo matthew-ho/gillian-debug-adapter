@@ -1,0 +1,44 @@
+import "wisl_pointer_arith.gil", "wisl_core.gil";
+
+
+pred list(+x, alpha : List) : (x == null) * (alpha == {{  }}),
+  <cell>(#lgvar0, #lgvar1; #v) * <bound>(#lgvar0; 2.) *
+  <cell>(#lgvar0, (#lgvar1 + 1.); #z) * types(#lgvar0 : Obj, #lgvar1 : Num) *
+  (x == {{ #lgvar0, #lgvar1 }}) * list(#z, #beta) *
+  (alpha == l+ ({{ #v }}, #beta));
+
+spec dispose(x)
+  [[  (x == #x) * list(#x, #alpha)  ]]
+  [[  emp  ]]
+  normal
+proc dispose(x) {
+    gvar0 := "dispose_loop0"(x);
+    x := l-nth(gvar0, 0.);
+    ret := null;
+    return
+};
+
+
+spec dispose_loop0(x)
+  [[  (x == #pvar_x) * list(#pvar_x, #beta)  ]]
+  [[  list(#new_pvar_x, #beta__new) *
+      (ret == {{ #new_pvar_x }}) *
+      (#new_pvar_x == null)  ]]
+  normal
+proc dispose_loop0(x) {
+             goto [(not (x = null))] then0 else0;
+  then0:     gvar0 := "i__add"(x, 1.);
+             gvar1 := [getcell](l-nth(gvar0, 0.), l-nth(gvar0, 1.));
+             t := l-nth(gvar1, 2.);
+             gvar2 := [getcell](l-nth(x, 0.), l-nth(x, 1.));
+             goto [(l-nth(gvar2, 1.) = 0.)] continue0 fail0;
+  fail0:     fail [InvalidBlockPointer](x);
+  continue0: gvar3 := [dispose](l-nth(gvar2, 0.));
+             x := t;
+             loopretvar__ := "dispose_loop0"(x);
+             goto endif0;
+  else0:     loopretvar__ := {{ x }};
+  endif0:    skip;
+             ret := loopretvar__;
+             return
+};
