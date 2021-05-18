@@ -6,10 +6,12 @@
 
 import * as vscode from 'vscode';
 import { ProviderResult } from 'vscode';
+import { activateCodeLens } from './activateCodeLens';
 import { activateDebug } from './activateDebug';
 
 export function activate(context: vscode.ExtensionContext) {
 	activateDebug(context, new DebugAdapterExecutableFactory());
+	activateCodeLens(context);
 }
 
 export function deactivate() {

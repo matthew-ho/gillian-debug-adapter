@@ -59,7 +59,9 @@
     "onDebugDynamicConfigurations:gillian",
     "onCommand:extension.gillian-debug.getProgramName",
     "onCommand:extension.gillian-debug.runEditorContents",
-    "onCommand:extension.gillian-debug.debugEditorContents"
+    "onCommand:extension.gillian-debug.debugEditorContents",
+    "onLanguage:javascript",
+    "onLanguage:gil"
   ],
   "contributes": {
     "menus": {
@@ -130,6 +132,10 @@
         "category": "Gillian Debugger",
 				"enablement": "!inDebugMode",
         "icon": "$(play)"
+      },
+      {
+        "command": "extension.code-lens.debugProcedure",
+        "title": "Debug Procedure"
       }
     ],
     "breakpoints": [
@@ -168,6 +174,10 @@
                 "type": "string",
                 "description": "Target language of the program to debug (wisl, js, etc.).",
                 "default": "wisl"
+              },
+              "procedureName": {
+                "type": "string",
+                "description": "Name of procedure to debug"
               },
               "trace": {
                 "type": "boolean",

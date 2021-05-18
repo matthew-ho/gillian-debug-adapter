@@ -22,5 +22,16 @@
 			"targetLanguage": "js",
 			"trace": false
 		}
+		,
+		{
+			"type": "gillian",
+			"request": "launch",
+			"name": "Debug SLL.js: listCopy",
+			"program": "${workspaceFolder}/js/SLL.js",
+			"stopOnEntry": true,
+			"targetLanguage": "js",
+			"procedureName": "listCopy",
+			"trace": false
+		}
 	]
 }
