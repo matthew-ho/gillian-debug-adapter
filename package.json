@@ -61,7 +61,8 @@
     "onCommand:extension.gillian-debug.runEditorContents",
     "onCommand:extension.gillian-debug.debugEditorContents",
     "onLanguage:javascript",
-    "onLanguage:gil"
+    "onLanguage:gil",
+    "onLanguage:wisl"
   ],
   "contributes": {
     "menus": {

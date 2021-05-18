@@ -9,18 +9,22 @@ export function activateCodeLens(context: ExtensionContext) {
     }
   );
 
-  let docSelector = {
-    language: "javascript",
-    scheme: "file"
-  };
+  const supported_languages = ["javascript", "wisl"];
 
-  let codeLensProviderDisposable = languages.registerCodeLensProvider(
-    docSelector,
-    new DebugCodeLensProvider()
-  );
+  for (const language of supported_languages) {
+    let docSelector = {
+      language: language,
+      scheme: "file"
+    };
 
-  context.subscriptions.push(commandDisposable);
-  context.subscriptions.push(codeLensProviderDisposable);
+    let codeLensProviderDisposable = languages.registerCodeLensProvider(
+      docSelector,
+      new DebugCodeLensProvider()
+    );
+
+    context.subscriptions.push(commandDisposable);
+    context.subscriptions.push(codeLensProviderDisposable);
+  }
 }
 
 class DebugCodeLensProvider implements CodeLensProvider {
