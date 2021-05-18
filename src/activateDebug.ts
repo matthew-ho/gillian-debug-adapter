@@ -44,8 +44,7 @@ export function activateDebug(context: vscode.ExtensionContext, factory: vscode.
 
 	context.subscriptions.push(vscode.commands.registerCommand('extension.gillian-debug.getProgramName', config => {
 		return vscode.window.showInputBox({
-			placeHolder: "Please enter the name of a file",
-			value: "readme.md"
+			placeHolder: "Please enter the name of a file"
 		});
 	}));
 
