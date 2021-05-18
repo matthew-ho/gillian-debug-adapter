@@ -114,13 +114,7 @@
 					"command": "extension.gillian-debug.runEditorContents",
 					"when": "resourceLangId == javascript"
 				}
-			],
-      "debug/variables/context": [
-        {
-          "command": "extension.gillian-debug.toggleFormatting",
-          "when": "debugType == 'gillian' && debugProtocolVariableMenuContext == 'simple'"
-        }
-      ]
+			]
     },
     "commands": [
       {
@@ -136,10 +130,6 @@
         "category": "Gillian Debugger",
 				"enablement": "!inDebugMode",
         "icon": "$(play)"
-      },
-      {
-        "command": "extension.gillian-debug.toggleFormatting",
-        "title": "Toggle between decimal and hex formatting"
       }
     ],
     "breakpoints": [
