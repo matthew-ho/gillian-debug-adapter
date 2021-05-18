@@ -22,37 +22,37 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
 	// Since the code implements the default behavior, it is absolutely not neccessary and we show it here only for educational purpose.
 
 	createDebugAdapterDescriptor(_session: vscode.DebugSession, executable: vscode.DebugAdapterExecutable | undefined): ProviderResult<vscode.DebugAdapterDescriptor> {
-		const file_extension = _session.configuration.program.split('.').pop();
-		let gillian_executable_command : string;
+		const fileExtension = _session.configuration.program.split('.').pop();
+		let gillianExecutableCommand : string;
 		// Match of the file extension first
-		switch (file_extension) {
+		switch (fileExtension) {
 			case "js":
-				gillian_executable_command = "gillian-js";
+				gillianExecutableCommand = "gillian-js";
 				break;
 			case "wisl":
-				gillian_executable_command = "wisl";
+				gillianExecutableCommand = "wisl";
 				break;
 			case "gil":
 				// Check the target language if it is a GIL file
 				switch (_session.configuration.targetLanguage) {
 					case "js":
-						gillian_executable_command = "gillian-js";
+						gillianExecutableCommand = "gillian-js";
 						break;
 					case "wisl":
 					default:
 						// Default to WISL
-						gillian_executable_command = "wisl";
+						gillianExecutableCommand = "wisl";
 						break;
 				}
 				break;
 			default:
 				// Default to WISL
-				gillian_executable_command = "wisl";
+				gillianExecutableCommand = "wisl";
 				break;
 		}
 
 		const command = "esy";
-		const args = ["x", gillian_executable_command, "debugverify", "-r", "db,file"];
+		const args = ["x", gillianExecutableCommand, "debugverify", "-r", "db,file"];
 		const options = {
 			cwd: __dirname + "/../../../Gillian"
 		};
