@@ -1,32 +1,32 @@
 import "wisl_pointer_arith.gil", "wisl_core.gil";
 
 
-pred list(+x, alpha : List) :
-  (x == null) * (alpha == {{  }}),
-  <cell>(#lgvar0, #lgvar1; #v) * <cell>(#lgvar0, (#lgvar1 i+ 1i); #z) *
-    types(#lgvar0 : Obj, #lgvar1 : Int) * (x == {{#lgvar0, #lgvar1}}) *
-    list(#z, #beta) * (alpha == l+ ({{#v}}, #beta));
+pred list(+x, alpha : List) : (x == null) * (alpha == {{  }}),
+  <cell>(#lgvar0, #lgvar1; #v) * <bound>(#lgvar0; 2.) *
+  <cell>(#lgvar0, (#lgvar1 + 1.); #z) * types(#lgvar0 : Obj, #lgvar1 : Num) *
+  (x == {{ #lgvar0, #lgvar1 }}) * list(#z, #beta) *
+  (alpha == l+ ({{ #v }}, #beta));
 
 spec append(x, v)
   [[  (x == #x) * (v == #v) * list(#x, #alpha)  ]]
-  [[  list(ret, l+ (#alpha, {{#v}}))  ]]
+  [[  list(ret, l+ (#alpha, {{ #v }}))  ]]
   normal
 proc append(x, v) {
           goto [(x = null)] then0 else0;
-  then0:  x := [alloc](2i);
-          gvar0 := [getcell](l-nth(x, 0i), l-nth(x, 1i));
-          gvar1 := [setcell](l-nth(gvar0, 0i), l-nth(gvar0, 1i), v);
-          gvar2 := "i__add"(x, 1i);
-          gvar3 := [getcell](l-nth(gvar2, 0i), l-nth(gvar2, 1i));
-          gvar4 := [setcell](l-nth(gvar3, 0i), l-nth(gvar3, 1i), null);
+  then0:  x := [alloc](2.);
+          gvar0 := [getcell](l-nth(x, 0.), l-nth(x, 1.));
+          gvar1 := [setcell](l-nth(gvar0, 0.), l-nth(gvar0, 1.), v);
+          gvar2 := "i__add"(x, 1.);
+          gvar3 := [getcell](l-nth(gvar2, 0.), l-nth(gvar2, 1.));
+          gvar4 := [setcell](l-nth(gvar3, 0.), l-nth(gvar3, 1.), null);
           goto endif0;
-  else0:  gvar5 := "i__add"(x, 1i);
-          gvar6 := [getcell](l-nth(gvar5, 0i), l-nth(gvar5, 1i));
-          t := l-nth(gvar6, 2i);
+  else0:  gvar5 := "i__add"(x, 1.);
+          gvar6 := [getcell](l-nth(gvar5, 0.), l-nth(gvar5, 1.));
+          t := l-nth(gvar6, 2.);
           t := "append"(t, v);
-          gvar7 := "i__add"(x, 1i);
-          gvar8 := [getcell](l-nth(gvar7, 0i), l-nth(gvar7, 1i));
-          gvar9 := [setcell](l-nth(gvar8, 0i), l-nth(gvar8, 1i), t);
+          gvar7 := "i__add"(x, 1.);
+          gvar8 := [getcell](l-nth(gvar7, 0.), l-nth(gvar7, 1.));
+          gvar9 := [setcell](l-nth(gvar8, 0.), l-nth(gvar8, 1.), t);
   endif0: skip;
           ret := x;
           return
