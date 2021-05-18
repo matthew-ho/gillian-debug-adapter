@@ -9,9 +9,9 @@ export function activateCodeLens(context: ExtensionContext) {
     }
   );
 
-  const supported_languages = ["javascript", "wisl"];
+  const supportedLanguages = ["javascript", "gil", "wisl"];
 
-  for (const language of supported_languages) {
+  for (const language of supportedLanguages) {
     let docSelector = {
       language: language,
       scheme: "file"
@@ -31,7 +31,19 @@ class DebugCodeLensProvider implements CodeLensProvider {
 
   async provideCodeLenses(document: TextDocument): Promise<CodeLens[]> {
     const text = document.getText();
-    const reProcedure = /function /g;
+
+    let reProcedure: RegExp;
+    switch (document.languageId) {
+      case "gil":
+        reProcedure = /proc /g;
+        break;
+      case "javascript":
+      case "wisl":
+      default:
+        reProcedure = /function /g;
+        break;
+    }
+
     const reProcedureName = /(.+?)\(/g;
 
     let lenses: CodeLens[] = [];
