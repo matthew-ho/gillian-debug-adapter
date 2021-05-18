@@ -56,89 +56,89 @@
   },
   "main": "./dist/ext/extension.js",
   "activationEvents": [
-    "onDebugDynamicConfigurations:mock",
-    "onCommand:extension.mock-debug.getProgramName",
-    "onCommand:extension.mock-debug.runEditorContents",
-    "onCommand:extension.mock-debug.debugEditorContents"
+    "onDebugDynamicConfigurations:gillian",
+    "onCommand:extension.gillian-debug.getProgramName",
+    "onCommand:extension.gillian-debug.runEditorContents",
+    "onCommand:extension.gillian-debug.debugEditorContents"
   ],
   "contributes": {
     "menus": {
       "editor/title/run": [
         {
-          "command": "extension.mock-debug.runEditorContents",
+          "command": "extension.gillian-debug.runEditorContents",
           "when": "resourceLangId == gil"
         },
         {
-          "command": "extension.mock-debug.debugEditorContents",
+          "command": "extension.gillian-debug.debugEditorContents",
           "when": "resourceLangId == gil"
         },
         {
-          "command": "extension.mock-debug.runEditorContents",
+          "command": "extension.gillian-debug.runEditorContents",
           "when": "resourceLangId == wisl"
         },
         {
-          "command": "extension.mock-debug.debugEditorContents",
+          "command": "extension.gillian-debug.debugEditorContents",
           "when": "resourceLangId == wisl"
         },
         {
-          "command": "extension.mock-debug.runEditorContents",
+          "command": "extension.gillian-debug.runEditorContents",
           "when": "resourceLangId == javascript"
         },
         {
-          "command": "extension.mock-debug.debugEditorContents",
+          "command": "extension.gillian-debug.debugEditorContents",
           "when": "resourceLangId == javascript"
         }
       ],
       "commandPalette": [
 				{
-					"command": "extension.mock-debug.debugEditorContents",
+					"command": "extension.gillian-debug.debugEditorContents",
 					"when": "resourceLangId == gil"
 				},
 				{
-					"command": "extension.mock-debug.runEditorContents",
+					"command": "extension.gillian-debug.runEditorContents",
 					"when": "resourceLangId == gil"
 				},
         {
-					"command": "extension.mock-debug.debugEditorContents",
+					"command": "extension.gillian-debug.debugEditorContents",
 					"when": "resourceLangId == wisl"
 				},
 				{
-					"command": "extension.mock-debug.runEditorContents",
+					"command": "extension.gillian-debug.runEditorContents",
 					"when": "resourceLangId == wisl"
 				},
         {
-					"command": "extension.mock-debug.debugEditorContents",
+					"command": "extension.gillian-debug.debugEditorContents",
 					"when": "resourceLangId == javascript"
 				},
 				{
-					"command": "extension.mock-debug.runEditorContents",
+					"command": "extension.gillian-debug.runEditorContents",
 					"when": "resourceLangId == javascript"
 				}
 			],
       "debug/variables/context": [
         {
-          "command": "extension.mock-debug.toggleFormatting",
-          "when": "debugType == 'mock' && debugProtocolVariableMenuContext == 'simple'"
+          "command": "extension.gillian-debug.toggleFormatting",
+          "when": "debugType == 'gillian' && debugProtocolVariableMenuContext == 'simple'"
         }
       ]
     },
     "commands": [
       {
-        "command": "extension.mock-debug.debugEditorContents",
+        "command": "extension.gillian-debug.debugEditorContents",
         "title": "Debug File",
-        "category": "Mock Debug",
+        "category": "Gillian Debugger",
 				"enablement": "!inDebugMode",
         "icon": "$(debug-alt)"
       },
       {
-        "command": "extension.mock-debug.runEditorContents",
+        "command": "extension.gillian-debug.runEditorContents",
         "title": "Run File",
-        "category": "Mock Debug",
+        "category": "Gillian Debugger",
 				"enablement": "!inDebugMode",
         "icon": "$(play)"
       },
       {
-        "command": "extension.mock-debug.toggleFormatting",
+        "command": "extension.gillian-debug.toggleFormatting",
         "title": "Toggle between decimal and hex formatting"
       }
     ],
@@ -150,13 +150,13 @@
         "language": "wisl"
       },
       {
-        "language": "js"
+        "language": "javascript"
       }
     ],
     "debuggers": [
       {
-        "type": "mock",
-        "label": "Mock Debug",
+        "type": "gillian",
+        "label": "Gillian Debugger",
         "program": "TODO: Compile Gillian as executable",
         "configurationAttributes": {
           "launch": {
@@ -184,7 +184,7 @@
         },
         "initialConfigurations": [
           {
-            "type": "mock",
+            "type": "gillian",
             "request": "launch",
             "name": "Ask for file name",
             "program": "${workspaceFolder}/${command:AskForProgramName}",
@@ -193,10 +193,10 @@
         ],
         "configurationSnippets": [
           {
-            "label": "Mock Debug: Launch",
-            "description": "A new configuration for 'debugging' a user selected markdown file.",
+            "label": "Gillian Debugger: Launch",
+            "description": "A new configuration for 'debugging' a user selected file in Gillian.",
             "body": {
-              "type": "mock",
+              "type": "gillian",
               "request": "launch",
               "name": "Ask for file name",
               "program": "^\"\\${workspaceFolder}/\\${command:AskForProgramName}\"",
@@ -205,7 +205,7 @@
           }
         ],
         "variables": {
-          "AskForProgramName": "extension.mock-debug.getProgramName"
+          "AskForProgramName": "extension.gillian-debug.getProgramName"
         }
       }
     ]

@@ -6,10 +6,10 @@
 
 import * as vscode from 'vscode';
 import { ProviderResult } from 'vscode';
-import { activateMockDebug } from './activateMockDebug';
+import { activateDebug } from './activateDebug';
 
 export function activate(context: vscode.ExtensionContext) {
-	activateMockDebug(context, new DebugAdapterExecutableFactory());
+	activateDebug(context, new DebugAdapterExecutableFactory());
 }
 
 export function deactivate() {
@@ -22,8 +22,20 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
 	// Since the code implements the default behavior, it is absolutely not neccessary and we show it here only for educational purpose.
 
 	createDebugAdapterDescriptor(_session: vscode.DebugSession, executable: vscode.DebugAdapterExecutable | undefined): ProviderResult<vscode.DebugAdapterDescriptor> {
+		const file_extension = _session.configuration.program.split('.').pop();
+		let gillian_executable_command : string;
+		switch (file_extension) {
+			case "js":
+				gillian_executable_command = "gillian-js";
+				break;
+			default:
+				// Default to WISL
+				gillian_executable_command = "wisl";
+				break;
+		}
+
 		const command = "esy";
-		const args = ["x", "gillian-js", "debugverify", "-r", "db,file"];
+		const args = ["x", gillian_executable_command, "debugverify", "-r", "db,file"];
 		const options = {
 			cwd: __dirname + "/../../../Gillian"
 		};

@@ -5,10 +5,10 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "mock",
+			"type": "gillian",
 			"request": "launch",
 			"name": "Debug list_append.gil",
-			"program": "${workspaceFolder}/list_append.gil",
+			"program": "${workspaceFolder}/wisl/list_append.gil",
 			"stopOnEntry": true,
 			"trace": false
 		}
