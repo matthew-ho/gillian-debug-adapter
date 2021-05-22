@@ -1,0 +1,21 @@
+{ emp }
+function get_one() {
+  x := new(1);
+  [x] := 1;
+  delete(x);
+  y := x;
+  y := [x];
+  return y
+}
+{ ret == 1 }
+
+{ emp }
+function vars_with_arithmetic() {
+  x := new(1);
+  [x] := 1;
+  delete(x);
+  y := x;
+  y := [x + 1];
+  return null
+}
+{ emp }

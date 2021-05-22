@@ -1,0 +1,6 @@
+{ (x -> 1) }
+function get_one(x) {
+  delete(x);
+  return 1
+}
+{ ret == 1 }

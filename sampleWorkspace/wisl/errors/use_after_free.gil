@@ -1,0 +1,40 @@
+import "wisl_pointer_arith.gil", "wisl_core.gil";
+
+
+spec get_one()
+  [[  emp  ]]
+  [[  (ret == 1.)  ]]
+  normal
+proc get_one() {
+             x := [alloc](1.);
+             gvar0 := [getcell](l-nth(x, 0.), l-nth(x, 1.));
+             gvar1 := [setcell](l-nth(gvar0, 0.), l-nth(gvar0, 1.), 1.);
+             goto [(l-nth(x, 1.) = 0.)] continue0 fail0;
+  fail0:     fail [InvalidBlockPointer](x);
+  continue0: gvar2 := [dispose](l-nth(x, 0.));
+             y := x;
+             gvar3 := [getcell](l-nth(x, 0.), l-nth(x, 1.));
+             y := l-nth(gvar3, 2.);
+             ret := y;
+             return
+};
+
+
+spec vars_with_arithmetic()
+  [[  emp  ]]
+  [[  (ret == 2.)  ]]
+  normal
+proc vars_with_arithmetic() {
+             x := [alloc](1.);
+             gvar0 := [getcell](l-nth(x, 0.), l-nth(x, 1.));
+             gvar1 := [setcell](l-nth(gvar0, 0.), l-nth(gvar0, 1.), 1.);
+             goto [(l-nth(x, 1.) = 0.)] continue0 fail0;
+  fail0:     fail [InvalidBlockPointer](x);
+  continue0: gvar2 := [dispose](l-nth(x, 0.));
+             y := x;
+             gvar3 := "i__add"(x, 1.);
+             gvar4 := [getcell](l-nth(gvar3, 0.), l-nth(gvar3, 1.));
+             y := l-nth(gvar4, 2.);
+             ret := y;
+             return
+};
