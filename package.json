@@ -65,6 +65,16 @@
     "onLanguage:wisl"
   ],
   "contributes": {
+    "configuration": {
+      "title": "gillian-debugger",
+      "properties": {
+        "gillianDebugger.gillianSourceRepository": {
+          "type": ["string", "null"],
+          "default": null,
+          "description": "Specifies the path to the Gillian source repository used to execute/debug a program."
+        }
+      }
+    },
     "menus": {
       "editor/title/run": [
         {

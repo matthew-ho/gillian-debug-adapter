@@ -53,10 +53,15 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
 				break;
 		}
 
+		const gillianSourceRepository : string =
+			vscode.workspace.getConfiguration('gillianDebugger').gillianSourceRepository === null ?
+				__dirname + "/../../../Gillian" :
+				vscode.workspace.getConfiguration('gillianDebugger').gillianSourceRepository;
+
 		const command = "esy";
 		const args = ["x", gillianExecutableCommand, "debugverify", "-r", "db,file"];
 		const options = {
-			cwd: __dirname + "/../../../Gillian"
+			cwd: gillianSourceRepository
 		};
 		executable = new vscode.DebugAdapterExecutable(command, args, options);
 
