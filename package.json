@@ -1,9 +1,9 @@
 {
-  "name": "gillian-debug-adapter",
-  "displayName": "Gillian Debug Adapter",
+  "name": "gillian-debugger",
+  "displayName": "Gillian Debugger",
   "version": "0.0.1",
   "publisher": "matthew-ho",
-  "description": "Debug adapters for Gillian.",
+  "description": "Debugger for Gillian.",
   "author": {
     "name": "Matthew Ho",
     "email": "mdh17@ic.ac.uk"
