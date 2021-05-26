@@ -1,5 +1,19 @@
 { (x -> 1) }
-function get_one(x) {
+function get_cell_no_loc_lookup(x) {
+  y := [x + 1];
+  return null
+}
+{ ret == null }
+
+{ x -> 1 }
+function get_cell_no_loc_update_lhs(x, y) {
+  [x + 1] := 2;
+  return null
+}
+{ ret == null }
+
+{ (x -> 1) }
+function dispose(x) {
   delete(x);
   return 1
 }
