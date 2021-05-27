@@ -1,0 +1,46 @@
+import "wisl_pointer_arith.gil", "wisl_core.gil";
+
+
+spec get_cell_no_loc_update_lhs(x, y)
+  [[  <cell>(#lgvar0, #lgvar1; 1.) *
+      types(#lgvar0 : Obj, #lgvar1 : Num) *
+      (x == {{ #lgvar0, #lgvar1 }})  ]]
+  [[  (ret == null)  ]]
+  normal
+proc get_cell_no_loc_update_lhs(x, y) {
+    gvar0 := "i__add"(x, 1.);
+    gvar1 := [getcell](l-nth(gvar0, 0.), l-nth(gvar0, 1.));
+    gvar2 := [setcell](l-nth(gvar1, 0.), l-nth(gvar1, 1.), 2.);
+    ret := null;
+    return
+};
+
+
+spec dispose(x)
+  [[  <cell>(#lgvar0, #lgvar1; 1.) *
+      types(#lgvar0 : Obj, #lgvar1 : Num) *
+      (x == {{ #lgvar0, #lgvar1 }})  ]]
+  [[  (ret == 1.)  ]]
+  normal
+proc dispose(x) {
+             goto [(l-nth(x, 1.) = 0.)] continue0 fail0;
+  fail0:     fail [InvalidBlockPointer](x);
+  continue0: gvar0 := [dispose](l-nth(x, 0.));
+             ret := 1.;
+             return
+};
+
+
+spec get_cell_no_loc_lookup(x)
+  [[  <cell>(#lgvar0, #lgvar1; 1.) *
+      types(#lgvar0 : Obj, #lgvar1 : Num) *
+      (x == {{ #lgvar0, #lgvar1 }})  ]]
+  [[  (ret == null)  ]]
+  normal
+proc get_cell_no_loc_lookup(x) {
+    gvar0 := "i__add"(x, 1.);
+    gvar1 := [getcell](l-nth(gvar0, 0.), l-nth(gvar0, 1.));
+    y := l-nth(gvar1, 2.);
+    ret := null;
+    return
+};

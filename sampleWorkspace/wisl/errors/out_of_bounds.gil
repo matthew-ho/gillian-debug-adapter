@@ -1,0 +1,17 @@
+import "wisl_pointer_arith.gil", "wisl_core.gil";
+
+
+spec get_one()
+  [[  emp  ]]
+  [[  (ret == 1.)  ]]
+  normal
+proc get_one() {
+    x := [alloc](1.);
+    gvar0 := [getcell](l-nth(x, 0.), l-nth(x, 1.));
+    gvar1 := [setcell](l-nth(gvar0, 0.), l-nth(gvar0, 1.), 1.);
+    gvar2 := "i__add"(x, 1.);
+    gvar3 := [getcell](l-nth(gvar2, 0.), l-nth(gvar2, 1.));
+    y := l-nth(gvar3, 2.);
+    ret := y;
+    return
+};
