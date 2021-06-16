@@ -30,3 +30,30 @@ proc append(x, v) {
           ret := x;
           return
 };
+
+
+spec append_out_of_bounds(x, v)
+  [[  (x == #x) * (v == #v) * list(#x, #alpha)  ]]
+  [[  list(ret, l+ (#alpha, {{ #v }}))  ]]
+  normal
+proc append_out_of_bounds(x, v) {
+          goto [(x = null)] then0 else0;
+  then0:  x := [alloc](2.);
+          gvar0 := "i__add"(x, 1.);
+          gvar1 := [getcell](l-nth(gvar0, 0.), l-nth(gvar0, 1.));
+          gvar2 := [setcell](l-nth(gvar1, 0.), l-nth(gvar1, 1.), v);
+          gvar3 := "i__add"(x, 2.);
+          gvar4 := [getcell](l-nth(gvar3, 0.), l-nth(gvar3, 1.));
+          gvar5 := [setcell](l-nth(gvar4, 0.), l-nth(gvar4, 1.), null);
+          goto endif0;
+  else0:  gvar6 := "i__add"(x, 1.);
+          gvar7 := [getcell](l-nth(gvar6, 0.), l-nth(gvar6, 1.));
+          t := l-nth(gvar7, 2.);
+          t := "append"(t, v);
+          gvar8 := "i__add"(x, 1.);
+          gvar9 := [getcell](l-nth(gvar8, 0.), l-nth(gvar8, 1.));
+          gvar10 := [setcell](l-nth(gvar9, 0.), l-nth(gvar9, 1.), t);
+  endif0: skip;
+          ret := x;
+          return
+};

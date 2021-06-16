@@ -1,19 +1,19 @@
 { (x -> 1) }
-function get_cell_no_loc_lookup(x) {
+function missing_cell(x) {
   y := [x + 1];
   return null
 }
 { ret == null }
 
-{ x -> 1 }
-function get_cell_no_loc_update_lhs(x, y) {
+{ (x -> 1) }
+function missing_cell_update_lhs(x, y) {
   [x + 1] := 2;
   return null
 }
 { ret == null }
 
 { (x -> 1) }
-function dispose(x) {
+function missing_bound(x) {
   delete(x);
   return 1
 }
