@@ -1,19 +1,14 @@
 import "wisl_pointer_arith.gil", "wisl_core.gil";
 
 
-pred freed_ptrs(ptrs : List) : (ptrs == {{  }}),
-  (ptrs == l+ ({{ #x }}, #rest)) * freed(#x) * freed_ptrs(#rest);
-
-
-pred list(+x, alpha : List, ptrs : List) : (x == null) * (alpha == {{  }}) *
-  (ptrs == {{  }}), <cell>(#lgvar0, 0.; #v) * <bound>(#lgvar0; 2.) *
-  <cell>(#lgvar0, 1.; #z) * types(#lgvar0 : Obj) * (x == {{ #lgvar0, 0. }}) *
-  list(#z, #beta, #rptrs) * (alpha == l+ ({{ #v }}, #beta)) *
-  (ptrs == l+ ({{ x }}, #rptrs));
+pred list(+x, alpha : List) : (x == null) * (alpha == {{  }}),
+  <cell>(#lgvar0, 0.; #v) * <bound>(#lgvar0; 2.) * <cell>(#lgvar0, 1.; #z) *
+  types(#lgvar0 : Obj) * (x == {{ #lgvar0, 0. }}) * list(#z, #beta) *
+  (alpha == l+ ({{ #v }}, #beta));
 
 spec list_dispose(x)
-  [[  (x == #x) * list(#x, #alpha, #ptrs)  ]]
-  [[  freed_ptrs(#ptrs)  ]]
+  [[  (x == #x) * list(#x, #alpha)  ]]
+  [[  emp  ]]
   normal
 proc list_dispose(x) {
              goto [(not (x = null))] then0 else0;
