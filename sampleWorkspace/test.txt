@@ -17,8 +17,9 @@ If a Mock Debug session is active, breakpoints are "validated" according these r
 * a breakpoint on a line containing the word `lazy` is not immediately validated, but only after hitting it once.
 
 ## Exceptions:
-
-If a line contains the word `exception` or the pattern `exception(name)` an exception is thrown.
+To make the debugger stop when an exception is thrown, two "exception options" exist in the BREAKPOINTS view:
+- **Named Exception**: if enabled and configured with a condition (e.g. `xxx`) the debugger will break on the `exception(xxx)` pattern.
+- **Other Exceptions**: if enabled the debugger will break on the word `exception` and the `exception(...)` pattern.
 
 ## Output logging:
 
